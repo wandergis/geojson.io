@@ -30481,23 +30481,64 @@ module.exports = function(context) {
             }];
 
         } else {
-            layers = [{
-                title: 'Mapbox',
-                layer: L.mapbox.tileLayer('mapbox.streets')
-            }, {
-                title: 'Satellite',
-                layer: L.mapbox.tileLayer('mapbox.satellite')
-            }, {
-                title: 'OCM',
-                layer: L.tileLayer('https://a.tile.thunderforest.com/cycle/{z}/{x}/{y}.png', {
-                   attribution: 'Maps &copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, Data &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                })
-            }, {
-                title: 'OSM',
-                layer: L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                })
-            }];
+            layers = [
+                {
+                  title: '高德-gcj02',
+                  layer: L.tileLayer(
+                    'http://webrd03.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',
+                    {
+                      attribution:
+                        '&copy; <a href="https://gaode.com/">高德软件</a>'
+                    }
+                  )
+                },
+                {
+                    title: 'geoq蓝色-gcj02',
+                    layer: L.tileLayer(
+                      'http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}',
+                      { attribution: '&copy; <a href="https://www.geoq.cn/">geoq</a>' }
+                    )
+                },
+                {
+                  title: '高德卫星-gcj02',
+                  layer: L.tileLayer(
+                    '//webst02.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}',
+                    {
+                      attribution:
+                        '&copy; <a href="https://gaode.com/">©2018 高德软件</a>'
+                    }
+                  )
+                },
+                { title: 'Mapbox-wgs84', layer: L.mapbox.tileLayer('mapbox.streets') },
+                {
+                  title: 'Satellite-wgs84',
+                  layer: L.mapbox.tileLayer('mapbox.satellite')
+                },
+                {
+                  title: 'OSM-wgs84',
+                  layer: L.tileLayer(
+                    'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    {
+                      attribution:
+                        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    }
+                  )
+                }
+                // OCM tiles from Thunderforest require an API key. Add your key and
+                // uncomment the lines below to enable the OCM layer.
+                //
+                // , {
+                //    title: 'OCM',
+                //    layer:
+                //    L.tileLayer('https://a.tile.thunderforest.com/cycle/{z}/{x}/{y}.png?apikey=<insert-your-apikey-here>',
+                //    {
+                //       attribution: 'Maps &copy; <a
+                //       href="http://www.thunderforest.com/">Thunderforest</a>, Data
+                //       &copy; <a href="http://osm.org/copyright">OpenStreetMap</a>
+                //       contributors'
+                //    })
+                // }
+              ];
         }
 
         var layerSwap = function(d) {
@@ -30551,7 +30592,7 @@ module.exports = function(context, readonly) {
 
     function map(selection) {
         context.map = L.mapbox.map(selection.node(), null)
-            .setView([20, 0], 2)
+            .setView([30, 120], 9)
             .addControl(L.mapbox.geocoderControl('mapbox.places', {
                 position: 'topright'
             }));

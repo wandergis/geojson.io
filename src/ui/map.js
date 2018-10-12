@@ -20,7 +20,7 @@ module.exports = function(context, readonly) {
 
     function map(selection) {
         context.map = L.mapbox.map(selection.node(), null)
-            .setView([20, 0], 2)
+            .setView([30, 120], 9)
             .addControl(L.mapbox.geocoderControl('mapbox.places', {
                 position: 'topright'
             }));
